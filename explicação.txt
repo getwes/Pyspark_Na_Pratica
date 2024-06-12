@@ -1,0 +1,24 @@
+#visualizando datasets de exemplos da databricks
+display(dbutils.fs.ls("/databricks-datasets"))
+====================================
+#lendo o arquivo de dados
+arquivo = "dbfs:/databricks-datasets/flights/"
+====================================
+arquivo
+ 'dbfs:/databricks-datasets/flights/'
+ ===================================
+ #lendo o arquivo de dados
+#inferSchema = True # faz com oque o spark fale o tipo de dados que estamos trabalhando datatype
+#header = True
+
+df = spark \
+.read.format("csv")\
+.option("inferSchema", "True")\
+.option("header", "True")\
+.csv(arquivo)
+====================================
+#imprime os datatypes das colunas do dataframe
+df.printSchema()
+====================================
+#Imprime o tipo da variavel df
+type(df)
