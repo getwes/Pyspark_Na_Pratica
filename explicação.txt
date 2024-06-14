@@ -49,3 +49,46 @@ df.sort("delay").show(5)
 from pyspark.sql.functions import desc, asc, expr
 # ordenando por ordem crescente
 df.orderBy(expr("delay desc")).show(10)
+====================================
+#Visualizando estatisticas descritivas
+df.describe().show()
+====================================
+# interando sobre todas as linhas do dataframe
+for i in df.collect():
+    print(i)
+    print(i[0], i[1] * 2)
+====================================
+# Adicionando uma coluna ao dataFrame
+df = df.withColumn('Nova Coluna',df['delay']+2)# criar uma nova coluna com o valor da coluna delay mais 2
+df.show(10)
+====================================
+# retirando coluna
+df = df.drop('Nova Coluna')
+df.show(10)
+====================================
+#Renomeando uma coluna no dataframe
+df.withColumnRenamed('nova Coluna','new Column').show()
+====================================
+############ TRABALHANDO COM MISSING VALUES
+====================================
+df.filter("delay is null").show()
+====================================
+#filtrando valores missing
+df.filter(df.delay.isNull()).show(10)
+====================================
+############PREENCHENDO DADOS MISSING
+====================================
+# preenchendo os dados missing com valor 0
+df.na.fill(value=0).show()
+====================================
+# preenchendo valores missing com valor 0 apenas da coluna delay
+df.na.fill(value=0, subset=['delay']).show()
+====================================
+# preenchendo os dados com valores de string vazia
+df.na.fill("").show()
+====================================
+#remover qualquer linha nula de qualquer coluna
+df.na.drop().show()
+====================================
+df.show(100)
+====================================
