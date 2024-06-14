@@ -22,3 +22,30 @@ df.printSchema()
 ====================================
 #Imprime o tipo da variavel df
 type(df)
+====================================
+#retorna as primeras 5 linhas do dataframe em formato de array.
+df.take(5)
+====================================
+# Usando o comando display
+display(df.show(5))
+====================================
+#imprime a quantidade de linhas no dataframe
+df.count()
+====================================
+####### CONSULTANDO DADOS DO DATAFRAME
+====================================
+from pyspark.sql.functions import max
+df.select(max("delay")).take(1)
+====================================
+#Filtrando linhas de um dataframe usando filter
+df.filter("delay < 2").show(2)
+====================================
+#Usando where (um alias para o metodo filter)
+df.where("delay < 2").show(2)
+====================================
+# ordernar o dataframe pela coluna delay
+df.sort("delay").show(5)
+====================================
+from pyspark.sql.functions import desc, asc, expr
+# ordenando por ordem crescente
+df.orderBy(expr("delay desc")).show(10)
